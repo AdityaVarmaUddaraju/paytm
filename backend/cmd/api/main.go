@@ -6,8 +6,9 @@ import (
 	"flag"
 	"log/slog"
 	"os"
-	"time"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/AdityaVarmaUddaraju/paytm/internal/data"
 	_ "github.com/lib/pq"
@@ -32,6 +33,7 @@ type application struct {
 	cfg    config
 	logger *slog.Logger
 	models data.Models
+	wg     sync.WaitGroup
 }
 
 func main() {
