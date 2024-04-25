@@ -24,5 +24,5 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPost, "/v1/accounts/add", app.authenticate(app.addMoneyHandler))
 	router.HandlerFunc(http.MethodPost, "/v1/accounts/transfer", app.authenticate(app.transferMoneyHandler))
 
-	return app.enableCORS(router)
+	return app.recoverPanic(app.enableCORS(router))
 }
