@@ -21,7 +21,7 @@ confirm:
 ## run/api: run the cmd/api application
 .PHONY: run/api
 run/api:
-	go run ./cmd/api
+	go run ./cmd/api -jwt-secret-key=${JWT_SECRET_KEY} -db-dsn=${PAYTM_DB_DSN} -cors-trusted-origins=http://localhost:9000
 
 ## db/psql: connect to the database using psql
 .PHONY: db/psql
@@ -39,4 +39,10 @@ db/migrations/new:
 db/migrations/up: confirm
 	@echo 'Running up migrations...'
 	migrate -path ./migrations -database ${PAYTM_DB_DSN} up
+
+## db/migrations/down: apply all down database migrations
+.PHONY: db/migrations/down
+db/migrations/down: confirm
+	@echo 'Running down migrations...'
+	migrate -path ./migrations -database ${PAYTM_DB_DSN} down
 
